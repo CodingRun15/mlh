@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RUSH — slam the work through</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@400;500;600;700&family=Teko:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#board">Skip to board</a>
+
+    <header class="mast">
+      <div class="mast__brand">
+        <p class="stamp">Live in memory · dies on refresh</p>
+        <h1>RUSH</h1>
+        <p class="tag">Three lanes. No backlog theater. Move it or kill it.</p>
+      </div>
+      <p class="mast__count" aria-live="polite">
+        <span id="board-stats">0 cards on deck</span>
+      </p>
+    </header>
+
+    <section class="console" aria-label="Add a card and filter the board">
+      <form id="add-form" class="composer" novalidate>
+        <div class="field">
+          <label for="card-title">New card</label>
+          <input
+            id="card-title"
+            name="title"
+            type="text"
+            maxlength="80"
+            autocomplete="off"
+            spellcheck="true"
+            placeholder="Name the next hit — 3 to 80 characters"
+            aria-describedby="title-hint title-error"
+            required
+          />
+          <p id="title-hint" class="hint">Letters or numbers required. Duplicates get bounced.</p>
+          <p id="title-error" class="error" role="alert" hidden></p>
+        </div>
+        <button type="submit" class="btn btn--slam">SLAM IT IN</button>
+      </form>
+
+      <div class="filters">
+        <div class="field field--search">
+          <label for="search">Filter by text</label>
+          <input
+            id="search"
+            type="search"
+            placeholder="Hunt a title…"
+            autocomplete="off"
+          />
+        </div>
+        <fieldset class="chips">
+          <legend>Lane</legend>
+          <label class="chip">
+            <input type="radio" name="lane" value="all" checked />
+            <span>All</span>
+          </label>
+          <label class="chip">
+            <input type="radio" name="lane" value="todo" />
+            <span>To Do</span>
+          </label>
+          <label class="chip">
+            <input type="radio" name="lane" value="doing" />
+            <span>In Progress</span>
+          </label>
+          <label class="chip">
+            <input type="radio" name="lane" value="done" />
+            <span>Done</span>
+          </label>
+        </fieldset>
+      </div>
+    </section>
+
+    <p id="filter-status" class="filter-status" aria-live="polite"></p>
+
+    <main id="board" class="board">
+      <section class="lane" data-lane="todo" aria-labelledby="lane-todo">
+        <header class="lane__head">
+          <h2 id="lane-todo">To Do</h2>
+          <span class="count" data-count="todo">0</span>
+        </header>
+        <ul class="lane__list" data-list="todo"></ul>
+      </section>
+      <section class="lane" data-lane="doing" aria-labelledby="lane-doing">
+        <header class="lane__head">
+          <h2 id="lane-doing">In Progress</h2>
+          <span class="count" data-count="doing">0</span>
+        </header>
+        <ul class="lane__list" data-list="doing"></ul>
+      </section>
+      <section class="lane" data-lane="done" aria-labelledby="lane-done">
+        <header class="lane__head">
+          <h2 id="lane-done">Done</h2>
+          <span class="count" data-count="done">0</span>
+        </header>
+        <ul class="lane__list" data-list="done"></ul>
+      </section>
+    </main>
+
+    <footer class="foot">
+      Bare metal. No database. Cards live in a JS array until you close the tab.
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
